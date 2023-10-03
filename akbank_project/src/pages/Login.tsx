@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { citiesArr } from '../models/citiesData'
+import { auth } from '../service'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
 
-  const [username, setUserName] = useState('')
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+
+  const [username, setUserName] = useState('kminchelle')
+  const [password, setPassword] = useState('0lelplR')
 
   const fncLogin = ( evt: React.FormEvent ) => {
     evt.preventDefault()
@@ -14,7 +18,13 @@ function Login() {
     }else if ( password === '') {
         toast.error('Password Empty!')
     }else {
-        console.log('Send Form!')
+        auth(username, password).then(res => {
+            // eslint-disable-next-line
+            const dt = res.data
+            navigate('/product')
+        }).catch(err => {
+            toast.error(err.message)
+        })
     }
   }
 
@@ -26,10 +36,10 @@ function Login() {
                 <h2>User Login</h2>
                 <form onSubmit={fncLogin} >
                     <div className='mb-3'>
-                        <input onChange={(evt) => setUserName(evt.target.value)} placeholder='Username' className='form-control' />
+                        <input value={username} onChange={(evt) => setUserName(evt.target.value)} placeholder='Username' className='form-control' />
                     </div>
                     <div className='mb-3'>
-                        <input onChange={(evt) => setPassword(evt.target.value)} type='password' placeholder='Password' className='form-control' />
+                        <input value={password} onChange={(evt) => setPassword(evt.target.value)} type='password' placeholder='Password' className='form-control' />
                     </div>
                     <div className='mb-3'>
                     <select className="form-select">
