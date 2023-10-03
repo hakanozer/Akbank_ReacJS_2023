@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { citiesArr } from '../models/citiesData'
 import { auth } from '../service'
 import { useNavigate } from 'react-router-dom'
+import { encrypt } from '../util'
 
 function Login() {
 
@@ -21,7 +22,10 @@ function Login() {
         auth(username, password).then(res => {
             // eslint-disable-next-line
             const dt = res.data
-            navigate('/product')
+            var json = JSON.stringify(dt)
+            json = encrypt(json)
+            localStorage.setItem('user', json)
+            navigate('/product', {replace: true})
         }).catch(err => {
             toast.error(err.message)
         })
