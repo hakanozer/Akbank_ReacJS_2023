@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { IUser } from './models/IUser'
+import { IProducts } from './models/IProducts'
 
 const base_url = 'https://dummyjson.com/'
 const config = axios.create({
@@ -16,4 +17,14 @@ export const auth = ( username: string, password: string ) => {
         password: password
     }
     return config.post<IUser>('auth/login', sendObj )
+}
+
+
+// All Product
+export const allProduct = (skip: number = 0) => {
+    const sendObj = {
+        limit: 10,
+        skip: skip
+    }
+    return config.get<IProducts>('products', {params: sendObj})
 }
