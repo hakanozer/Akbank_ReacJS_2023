@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { IUser } from './models/IUser'
-import { IProducts } from './models/IProducts'
+import { IProduct, IProducts } from './models/IProducts'
 
 const base_url = 'https://dummyjson.com/'
 const config = axios.create({
@@ -27,4 +27,9 @@ export const allProduct = (skip: number = 0) => {
         skip: skip
     }
     return config.get<IProducts>('products', {params: sendObj})
+}
+
+// Single Product
+export const singleProduct = (id: number) => {
+    return config.get<IProduct>('products/'+id)
 }

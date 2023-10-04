@@ -9,7 +9,7 @@ function ProductItem(item: {pro: IProduct}) {
   return (
     <>
     <div
-    onClick={ ()=> navigate('/productDetail/'+item.pro.id) }
+    onClick={ ()=> navigate('/productDetail/'+item.pro.id, {state: item.pro}) }
     className="card mb-3" role='button'>
         <img src={item.pro.thumbnail} style={{height: 250,}} className="card-img-top" alt="..." />
         <div className="card-body">
