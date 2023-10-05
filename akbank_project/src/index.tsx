@@ -13,6 +13,7 @@ import Product from './pages/Product';
 import Control from './pages/Control';
 import Users from './pages/Users';
 import ProductDetail from './pages/ProductDetail';
+import Likes from './pages/Likes';
 
 
 
@@ -25,6 +26,7 @@ const route =
       <Route path='/product' element={ <Control page={<Product />} /> } />
       <Route path='/users' element={ <Control page={<Users />} /> } />
       <Route path='/productDetail/:pid' element={ <Control page={<ProductDetail />} /> } />
+      <Route path='/likes' element={ <Control page={<Likes />} /> } />
     </Routes>
   </BrowserRouter>
 </Provider>

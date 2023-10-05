@@ -30,6 +30,10 @@ function ProductDetail() {
                     const dt = res.data
                     setBigImage(dt.images[0])
                     setItem(dt)
+                    const index = likesData.findIndex(itemx => itemx.id === dt.id)
+                    if (index > -1) {
+                        setIsLike(true)
+                    }
                 }).catch(err => {
                     toast.error(err.message)
                 })
@@ -45,8 +49,25 @@ function ProductDetail() {
 
   const [isLike, setIsLike] = useState(false)
   const fncIsLike = () => {
-    setIsLike(!isLike)
+    const status = !isLike
+    if ( status ) {
+        // Like Add
+        const sendObj: ILikeAction = {
+            type: LikesEnum.LIKE_ADD,
+            payload: item!
+        }
+        dispatch(sendObj)
+    }else {
+        // Like Remove
+        const sendObj: ILikeAction = {
+            type: LikesEnum.LIKE_REMOVE,
+            payload: item!
+        }
+        dispatch(sendObj)
+    }
+    setIsLike(status)
   }
+
 
   return (
     <>

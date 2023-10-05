@@ -30,6 +30,9 @@ function NavBar( item: {user: IUser} ) {
             <li className="nav-item">
             <NavLink to={'/users'} className="nav-link">Users</NavLink>
             </li>
+            <li className="nav-item">
+            <NavLink to={'/likes'} className="nav-link">Likes</NavLink>
+            </li>
             <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Profile
