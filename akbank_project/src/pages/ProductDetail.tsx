@@ -3,8 +3,16 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { singleProduct } from '../service'
 import { toast } from 'react-toastify'
 import { IProduct } from '../models/IProducts'
+import { useSelector, useDispatch } from 'react-redux'
+import { StateType } from '../useRedux/Store'
+import { ILikeAction } from '../useRedux/LikesReducer'
+import { LikesEnum } from '../useRedux/LikesEnum'
 
 function ProductDetail() {
+
+  // Use Redux
+  const likesData = useSelector( (obj: StateType) => obj.LikesReducer )
+  const dispatch = useDispatch() 
 
   const location = useLocation()
   const params = useParams()
@@ -34,7 +42,12 @@ function ProductDetail() {
     }
     //console.log(location.state)
   },[])
-    
+
+  const [isLike, setIsLike] = useState(false)
+  const fncIsLike = () => {
+    setIsLike(!isLike)
+  }
+
   return (
     <>
     { item &&
@@ -43,6 +56,7 @@ function ProductDetail() {
                 <h2>{item.title}</h2>
                 <h3><span className="badge bg-secondary">{item.price}₺</span></h3>
                 <p>{item.description}</p>
+                <i onClick={() => fncIsLike() } className="bi bi-star-fill" role='button' style={{fontSize: 25, color: isLike === true ? 'red': 'black'}}></i>
             </div>
             <div className='col-sm-6'>
                 <img src={bigImage} className='img-fluid' role='button' data-bs-toggle="modal" data-bs-target="#modalID" />

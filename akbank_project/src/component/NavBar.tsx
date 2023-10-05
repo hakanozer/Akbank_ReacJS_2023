@@ -1,8 +1,12 @@
 import React from 'react'
 import {NavLink, useNavigate} from 'react-router-dom'
 import { IUser } from '../models/IUser'
+import { useSelector, useDispatch } from 'react-redux'
+import { StateType } from '../useRedux/Store'
 
 function NavBar( item: {user: IUser} ) {
+
+  const likesData = useSelector( (obj: StateType) => obj.LikesReducer )
 
   const navigate = useNavigate()
   
@@ -38,7 +42,7 @@ function NavBar( item: {user: IUser} ) {
             </ul>
             </li>
             <li className="nav-item">
-            <a className="nav-link disabled" aria-disabled="true">{item.user.firstName} {item.user.lastName}</a>
+            <a className="nav-link disabled" aria-disabled="true">{item.user.firstName} {item.user.lastName} ({likesData.length}) </a>
             </li>
         </ul>
         <form className="d-flex" role="search">
