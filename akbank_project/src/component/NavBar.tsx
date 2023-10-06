@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {NavLink, useNavigate} from 'react-router-dom'
 import { IUser } from '../models/IUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { StateType } from '../useRedux/Store'
+import { dataLikes } from '../util'
+import { ILikeAction } from '../useRedux/LikesReducer'
+import { LikesEnum } from '../useRedux/LikesEnum'
 
 function NavBar( item: {user: IUser} ) {
 
   const likesData = useSelector( (obj: StateType) => obj.LikesReducer )
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dataLikes().forEach((item, index) => {
+      const sendObj: ILikeAction = {
+        type: LikesEnum.LIKE_ADD,
+        payload: item
+      }
+      dispatch(sendObj)
+    })
+  }, [])
 
   const navigate = useNavigate()
-  
   const logout = () => {
     localStorage.removeItem('user')
     navigate('/', {replace: true})

@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { StateType } from '../useRedux/Store'
 import { ILikeAction } from '../useRedux/LikesReducer'
 import { LikesEnum } from '../useRedux/LikesEnum'
+import {Helmet} from 'react-helmet'
 
 function ProductDetail() {
 
@@ -71,6 +72,12 @@ function ProductDetail() {
 
   return (
     <>
+    { item &&
+        <Helmet>
+            <title>{item.title}</title>
+            <meta name='description' content={item.description}></meta>
+        </Helmet>
+    }
     { item &&
         <div className='row mt-3'>
             <div className='col-sm-6'>

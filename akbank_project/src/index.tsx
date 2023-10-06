@@ -14,6 +14,7 @@ import Control from './pages/Control';
 import Users from './pages/Users';
 import ProductDetail from './pages/ProductDetail';
 import Likes from './pages/Likes';
+import NotFound from './pages/NotFound';
 
 
 
@@ -27,6 +28,7 @@ const route =
       <Route path='/users' element={ <Control page={<Users />} /> } />
       <Route path='/productDetail/:pid' element={ <Control page={<ProductDetail />} /> } />
       <Route path='/likes' element={ <Control page={<Likes />} /> } />
+      <Route path='*' element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 </Provider>

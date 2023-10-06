@@ -4,6 +4,7 @@ import { citiesArr } from '../models/citiesData'
 import { auth } from '../service'
 import { useNavigate } from 'react-router-dom'
 import { encrypt } from '../util'
+import {Helmet} from 'react-helmet'
 
 function Login() {
 
@@ -34,6 +35,10 @@ function Login() {
 
   return (
     <>
+        <Helmet>
+            <title>User Login</title>
+            <meta name='description' content='App User Login'></meta>
+        </Helmet>
         <div className="row">
             <div className='col-sm-4'></div>
             <div className='col-sm-4'>

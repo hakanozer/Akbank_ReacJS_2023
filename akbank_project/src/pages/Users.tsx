@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { allUser } from '../service'
 import { User } from '../models/IUsers'
+import {Helmet} from 'react-helmet'
 
 function Users() {
 
@@ -8,12 +9,17 @@ function Users() {
   const [arrUser, setArrUser] = useState<User[]>([])
   const [arrUserBack, setArrUserBack] = useState<User[]>([])
   const [singleUser, setSingleUser] = useState<User>()
+  const refSearch = useRef<HTMLInputElement>(null)
+  
 
   useEffect(() => {
     allUser().then(res => {
       const dt = res.data
       setArrUser(dt.users)
       //setSingleUser(dt.users[0])
+      if( refSearch && refSearch.current ) {
+        refSearch.current.focus()
+      }
       setArrUserBack(dt.users)
     })
   }, [])
@@ -37,9 +43,13 @@ function Users() {
 
   return (
     <>
+    <Helmet>
+      <title>Users</title>
+      <meta name='description' content='App Users'></meta>
+    </Helmet>
     <div className='row'>
       <div className='col-sm-3 mb-3 mt-3'>
-        <input onChange={(evt) => setSearch(evt.target.value)} type='search' className='form-control' placeholder='User Search' />
+        <input ref={refSearch} onChange={(evt) => setSearch(evt.target.value)} type='search' className='form-control' placeholder='User Search' />
       </div>
     </div>
     <h2>User List</h2>

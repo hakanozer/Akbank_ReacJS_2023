@@ -3,6 +3,7 @@ import { allProduct } from '../service'
 import { toast } from 'react-toastify'
 import { IProduct } from '../models/IProducts'
 import ProductItem from '../component/ProductItem'
+import {Helmet} from 'react-helmet'
 
 function Product() {
 
@@ -52,6 +53,10 @@ function Product() {
 
   return (
     <>
+        <Helmet>
+            <title>Products</title>
+            <meta name='description' content='App Products'></meta>
+        </Helmet>
       <nav className='mt-2'>
         <ul className="pagination justify-content-end">
           {pageCountArr.map((item, index) => 
