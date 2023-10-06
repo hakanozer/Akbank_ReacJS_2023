@@ -1,9 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { allUser } from '../service'
 import { User } from '../models/IUsers'
 import {Helmet} from 'react-helmet'
+import { DataContext, IContext } from '../DataContext'
 
 function Users() {
+
+  // Context
+  const { getItem, setItem } = useContext(DataContext)
 
   const [search, setSearch] = useState('')
   const [arrUser, setArrUser] = useState<User[]>([])
@@ -22,6 +26,11 @@ function Users() {
       }
       setArrUserBack(dt.users)
     })
+    const sendObj: IContext = {
+      title: 'Users',
+      color: 'green'
+    }
+    setItem(sendObj)
   }, [])
 
   useEffect(() => {

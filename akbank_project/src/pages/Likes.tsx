@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { StateType } from '../useRedux/Store'
 import ProductItem from '../component/ProductItem'
 import {Helmet} from 'react-helmet'
+import { DataContext } from '../DataContext'
 //import unlike from '../assets/unlike.png'
 const unlike = require('../assets/unlike.png')
 function Likes() {
 
+  // Context
+  const { getItem, setItem } = useContext(DataContext)
+    
   const likesData = useSelector( (obj: StateType) => obj.LikesReducer )
   
   return (
@@ -15,6 +19,7 @@ function Likes() {
       <title>Likes</title>
       <meta name='description' content='App Likes'></meta>
     </Helmet>
+      <h2>{getItem.title}</h2>
       {likesData.length === 0 &&
       <div className='text-center'>
         <img src={unlike} style={{width: 75}} />

@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { allProduct } from '../service'
 import { toast } from 'react-toastify'
 import { IProduct } from '../models/IProducts'
 import ProductItem from '../component/ProductItem'
 import {Helmet} from 'react-helmet'
+import { DataContext, IContext } from '../DataContext'
 
 function Product() {
+
+  // Context
+  const { getItem, setItem } = useContext(DataContext)
 
   const [data, setData] = useState('')
   const [password, setPassword] = useState('')
@@ -43,6 +47,11 @@ function Product() {
 
   useEffect( () => {
     productAll(0)
+    const sendObj: IContext = {
+      title: 'Product',
+      color: 'red'
+    }
+    setItem(sendObj)
   }, [])
 
   useEffect( () => {

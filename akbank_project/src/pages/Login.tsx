@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { citiesArr } from '../models/citiesData'
 import { auth } from '../service'
@@ -7,6 +7,9 @@ import { encrypt } from '../util'
 import {Helmet} from 'react-helmet'
 
 function Login() {
+  
+  const refUsername = useRef<HTMLInputElement>(null)  
+  const refPassword = useRef<HTMLInputElement>(null)  
 
   const navigate = useNavigate()
 
@@ -17,8 +20,10 @@ function Login() {
     evt.preventDefault()
     if ( username === '' ) {
         toast.error('UserName Empty!')
+        refUsername.current?.focus()
     }else if ( password === '') {
         toast.error('Password Empty!')
+        refPassword.current?.focus()
     }else {
         auth(username, password).then(res => {
             // eslint-disable-next-line
@@ -45,10 +50,10 @@ function Login() {
                 <h2>User Login</h2>
                 <form onSubmit={fncLogin} >
                     <div className='mb-3'>
-                        <input value={username} onChange={(evt) => setUserName(evt.target.value)} placeholder='Username' className='form-control' />
+                        <input ref={refUsername} value={username} onChange={(evt) => setUserName(evt.target.value)} placeholder='Username' className='form-control' />
                     </div>
                     <div className='mb-3'>
-                        <input value={password} onChange={(evt) => setPassword(evt.target.value)} type='password' placeholder='Password' className='form-control' />
+                        <input ref={refPassword} value={password} onChange={(evt) => setPassword(evt.target.value)} type='password' placeholder='Password' className='form-control' />
                     </div>
                     <div className='mb-3'>
                     <select className="form-select">

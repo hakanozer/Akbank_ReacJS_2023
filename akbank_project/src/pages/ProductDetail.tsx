@@ -8,8 +8,17 @@ import { StateType } from '../useRedux/Store'
 import { ILikeAction } from '../useRedux/LikesReducer'
 import { LikesEnum } from '../useRedux/LikesEnum'
 import {Helmet} from 'react-helmet'
+import { animated, useSpring } from '@react-spring/web'
+  
 
 function ProductDetail() {
+
+    const titleStyle = useSpring({
+        from: { transform: "translateX(0px)", opacity: 0 },
+        to: [{ transform: "translateX(100px)" }, { transform: "translateX(0px)", opacity: 1 }],
+        config: { duration: 500 },
+        loop: false
+      });
 
   // Use Redux
   const likesData = useSelector( (obj: StateType) => obj.LikesReducer )
@@ -81,7 +90,9 @@ function ProductDetail() {
     { item &&
         <div className='row mt-3'>
             <div className='col-sm-6'>
-                <h2>{item.title}</h2>
+                <animated.h2 style={titleStyle}>
+                    {item.title}
+                </animated.h2>
                 <h3><span className="badge bg-secondary">{item.price}₺</span></h3>
                 <p>{item.description}</p>
                 <i onClick={() => fncIsLike() } className="bi bi-star-fill" role='button' style={{fontSize: 25, color: isLike === true ? 'red': 'black'}}></i>
